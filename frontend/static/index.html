@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aladdin-AI | Apple Liquid Glass Enterprise Finance</title>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Marked for Markdown rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #030712;
+      --glass-base: rgba(15, 23, 42, 0.55);
+      --glass-card: rgba(22, 33, 56, 0.42);
+      --glass-card-hover: rgba(30, 45, 76, 0.58);
+      --glass-alt: rgba(10, 16, 30, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-border-specular: rgba(255, 255, 255, 0.28);
+      --glass-border-active: rgba(6, 182, 212, 0.5);
+      
+      --text-hero: #ffffff;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+
+      /* iOS 27 Liquid Iridescent Accents */
+      --liquid-cyan: #06b6d4;
+      --liquid-blue: #3b82f6;
+      --liquid-purple: #a855f7;
+      --liquid-rose: #f43f5e;
+      --liquid-amber: #f59e0b;
+      --liquid-emerald: #10b981;
+      
+      --glass-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.6), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+      --specular-inset: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Plus Jakarta Sans", sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Ambient Liquid Mesh Glows (Apple iOS 27 Liquid Aurora) */
+    .liquid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .liquid-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(95px) saturate(220%);
+      opacity: 0.45;
+      animation: liquidFloat 22s infinite alternate ease-in-out;
+      will-change: transform;
+    }
+
+    .orb-1 {
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, #3b82f6 0%, #1d4ed8 60%, transparent 80%);
+      top: -150px;
+      left: -100px;
+      animation-duration: 24s;
+    }
+
+    .orb-2 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, #06b6d4 0%, #0d9488 50%, transparent 80%);
+      bottom: 5%;
+      right: -80px;
+      animation-duration: 28s;
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #8b5cf6 0%, #ec4899 50%, transparent 75%);
+      top: 35%;
+      left: 45%;
+      animation-duration: 20s;
+      animation-delay: -9s;
+    }
+
+    .orb-4 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, #10b981 0%, #06b6d4 60%, transparent 80%);
+      bottom: -100px;
+      left: 15%;
+      animation-duration: 26s;
+      animation-delay: -14s;
+    }
+
+    @keyframes liquidFloat {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      33% { transform: translate(70px, -90px) scale(1.12) rotate(45deg); }
+      66% { transform: translate(-80px, 60px) scale(0.92) rotate(90deg); }
+      100% { transform: translate(40px, 80px) scale(1.05) rotate(135deg); }
+    }
+
+    /* Monospace for High-Precision Financial Figures */
+    .mono {
+      font-family: 'JetBrains Mono', SFMono-Regular, monospace;
+      letter-spacing: -0.5px;
+    }
+
+    /* Gradient Text Utilities */
+    .text-gradient-cyan {
+      background: linear-gradient(135deg, #a5f3fc 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-emerald {
+      background: linear-gradient(135deg, #6ee7b7 0%, #10b981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-rose {
+      background: linear-gradient(135deg, #fda4af 0%, #f43f5e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-hero {
+      background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Top Bar with Apple VisionOS / iOS 27 Frosted Specular Blur */
+    header {
+      background: rgba(8, 14, 28, 0.55);
+      backdrop-filter: blur(32px) saturate(200%);
+      -webkit-backdrop-filter: blur(32px) saturate(200%);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35), var(--specular-inset);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.4) 0%, rgba(6, 182, 212, 0.5) 100%);
+      backdrop-filter: blur(20px);
+      padding: 8px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 1.08rem;
+      letter-spacing: 1.8px;
+      color: #fff;
+      border: 1px solid var(--glass-border-specular);
+      box-shadow: 0 8px 25px -4px rgba(6, 182, 212, 0.45), var(--specular-inset);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .logo-badge:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px -2px rgba(6, 182, 212, 0.65), var(--specular-inset);
+    }
+
+    .system-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.12);
+      backdrop-filter: blur(12px);
+      padding: 6px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.15);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 12px #34d399;
+      animation: liquidPulse 2s infinite ease-in-out;
+    }
+
+    @keyframes liquidPulse {
+      0% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px #10b981; }
+      50% { opacity: 0.4; transform: scale(0.8); box-shadow: 0 0 18px #34d399; }
+      100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px #10b981; }
+    }
+
+    .header-kpis {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .kpi-chip {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--specular-inset);
+      padding: 7px 16px;
+      border-radius: 12px;
+      text-align: right;
+      transition: all 0.25s ease;
+    }
+
+    .kpi-chip:hover {
+      background: rgba(30, 45, 76, 0.6);
+      border-color: var(--glass-border-specular);
+      transform: translateY(-1px);
+    }
+
+    .kpi-chip .label {
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+    }
+
+    .kpi-chip .val {
+      font-size: 0.96rem;
+      font-weight: 700;
+    }
+
+    /* Floating Island Glass Navigation Dock */
+    .nav-wrapper {
+      position: sticky;
+      top: 69px;
+      z-index: 90;
+      padding: 12px 28px 4px 28px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    nav.nav-bar {
+      pointer-events: auto;
+      display: inline-flex;
+      background: rgba(13, 20, 36, 0.62);
+      backdrop-filter: blur(36px) saturate(200%);
+      -webkit-backdrop-filter: blur(36px) saturate(200%);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.5), var(--specular-inset);
+      padding: 5px;
+      border-radius: 40px;
+      gap: 4px;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 9px 18px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .nav-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-btn.active {
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.28) 0%, rgba(59, 130, 246, 0.32) 100%);
+      border: 1px solid rgba(6, 182, 212, 0.45);
+      box-shadow: 0 4px 18px rgba(6, 182, 212, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Main Container */
+    main {
+      padding: 24px 28px 60px 28px;
+      flex: 1;
+      max-width: 1720px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-content {
+      display: none;
+      animation: liquidAppear 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes liquidAppear {
+      from { opacity: 0; transform: translateY(12px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Liquid Glass Cards */
+    .grid-kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .liquid-card {
+      background: var(--glass-card);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow), var(--specular-inset);
+      border-radius: 20px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .liquid-card:hover {
+      background: var(--glass-card-hover);
+      border-color: var(--glass-border-specular);
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 28px 50px -12px rgba(0, 0, 0, 0.7), 0 0 24px rgba(6, 182, 212, 0.15), var(--specular-inset);
+    }
+
+    /* Specular Liquid Shimmer Effect */
+    .liquid-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        115deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.05) 45%,
+        rgba(255, 255, 255, 0.12) 50%,
+        transparent 55%
+      );
+      transform: rotate(35deg) translateY(-100%);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .liquid-card:hover::after {
+      transform: rotate(35deg) translateY(100%);
+    }
+
+    /* Subtle Liquid Edge Light Indicators */
+    .liquid-card.cyan { border-top: 2px solid rgba(6, 182, 212, 0.7); }
+    .liquid-card.emerald { border-top: 2px solid rgba(16, 185, 129, 0.7); }
+    .liquid-card.amber { border-top: 2px solid rgba(245, 158, 11, 0.7); }
+    .liquid-card.rose { border-top: 2px solid rgba(244, 63, 94, 0.7); }
+    .liquid-card.blue { border-top: 2px solid rgba(59, 130, 246, 0.7); }
+
+    .liquid-card .card-title {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .liquid-card .card-title i {
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    .liquid-card .card-val {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+      line-height: 1.15;
+    }
+
+    .liquid-card .card-sub {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .grid-3-1 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    @media (max-width: 1120px) {
+      .grid-2, .grid-3-1 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .liquid-panel {
+      background: var(--glass-card);
+      backdrop-filter: blur(32px) saturate(190%);
+      -webkit-backdrop-filter: blur(32px) saturate(190%);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: var(--glass-shadow), var(--specular-inset);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .panel-header h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: -0.2px;
+    }
+
+    .panel-header h3 i {
+      color: var(--liquid-cyan);
+      filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.5));
+    }
+
+    /* Badges */
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      backdrop-filter: blur(8px);
+    }
+
+    .badge-blue { background: rgba(59, 130, 246, 0.18); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.35); }
+    .badge-emerald { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35); }
+    .badge-amber { background: rgba(245, 158, 11, 0.18); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.35); }
+    .badge-rose { background: rgba(244, 63, 94, 0.18); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.35); }
+    .badge-purple { background: rgba(168, 85, 247, 0.18); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.35); }
+
+    /* Tables with Frosted Glass Finish */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 14px;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+
+    table.data-table th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-dim);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.8px;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    table.data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background 0.2s ease;
+    }
+
+    table.data-table tr:hover td {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* iOS 27 Liquid Glass Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 20px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 24px -4px rgba(37, 99, 235, 0.5), var(--specular-inset);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 50%, #6d28d9 100%);
+      box-shadow: 0 12px 30px -2px rgba(37, 99, 235, 0.65), var(--specular-inset);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      box-shadow: var(--specular-inset);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--glass-border-specular);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Copilot Chat */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 680px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: rgba(5, 9, 18, 0.65);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 18px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .msg {
+      max-width: 86%;
+      padding: 16px 20px;
+      border-radius: 18px;
+      line-height: 1.6;
+      font-size: 0.92rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    .msg.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .msg.copilot {
+      align-self: flex-start;
+      background: rgba(18, 28, 48, 0.65);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      border-bottom-left-radius: 4px;
+      box-shadow: var(--specular-inset);
+    }
+
+    .msg.copilot table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 0.84rem;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .msg.copilot th, .msg.copilot td {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .msg.copilot th {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .msg.copilot code {
+      background: rgba(0, 0, 0, 0.45);
+      padding: 3px 6px;
+      border-radius: 6px;
+      color: var(--liquid-cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .quick-prompts {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      padding: 7px 15px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: var(--specular-inset);
+    }
+
+    .chip-btn:hover {
+      border-color: var(--liquid-cyan);
+      color: #fff;
+      background: rgba(6, 182, 212, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(6, 182, 212, 0.25);
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .chat-input-row input {
+      flex: 1;
+      background: rgba(6, 11, 22, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 30px;
+      font-size: 0.92rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .chat-input-row input:focus {
+      border-color: var(--liquid-cyan);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), inset 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Sliders with Fluid Styling */
+    .rebalance-item {
+      display: grid;
+      grid-template-columns: 85px 1fr 65px;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.2s ease;
+    }
+
+    .rebalance-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .rebalance-item input[type="range"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+    }
+
+    .rebalance-item input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+      border: 2px solid #ffffff;
+      transition: transform 0.15s ease;
+    }
+
+    .rebalance-item input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Liquid Aurora Mesh Blobs -->
+  <div class="liquid-background">
+    <div class="liquid-orb orb-1"></div>
+    <div class="liquid-orb orb-2"></div>
+    <div class="liquid-orb orb-3"></div>
+    <div class="liquid-orb orb-4"></div>
+  </div>
+
+  <!-- Top Institutional Header with Frosted Glass -->
+  <header>
+    <div class="brand-group">
+      <div class="logo-badge">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>ALADDIN-AI</span>
+      </div>
+      <div class="system-status">
+        <div class="pulse-dot"></div>
+        <span>APPLE LIQUID OS 27 ENGINE ACTIVE</span>
+      </div>
+    </div>
+
+    <div class="header-kpis">
+      <div class="kpi-chip">
+        <div class="label">Total Fund AUM</div>
+        <div class="val mono text-gradient-emerald" id="hdr-aum">$100,000,000</div>
+      </div>
+      <div class="kpi-chip">
+        <div class="label">1-Day VaR (95%)</div>
+        <div class="val mono text-gradient-rose" id="hdr-var">$1.58M</div>
+      </div>
+      <div class="kpi-chip">
+        <div class="label">Annualized Sharpe</div>
+        <div class="val mono text-gradient-cyan" id="hdr-sharpe">0.57</div>
+      </div>
+      <div class="kpi-chip">
+        <div class="label">Effective Duration</div>
+        <div class="val mono" style="color: #93c5fd;" id="hdr-duration">2.82 yrs</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Floating Island Glass Navigation Dock -->
+  <div class="nav-wrapper">
+    <nav class="nav-bar">
+      <button class="nav-btn active" onclick="switchTab('overview')">
+        <i class="fa-solid fa-chart-pie"></i> Portfolio Hub
+      </button>
+      <button class="nav-btn" onclick="switchTab('risk')">
+        <i class="fa-solid fa-wave-square"></i> Aladdin Risk & VaR
+      </button>
+      <button class="nav-btn" onclick="switchTab('stress')">
+        <i class="fa-solid fa-bolt-lightning"></i> Crisis Stress Matrix
+      </button>
+      <button class="nav-btn" onclick="switchTab('optimizer')">
+        <i class="fa-solid fa-sliders"></i> Black-Litterman Studio
+      </button>
+      <button class="nav-btn" onclick="switchTab('factors')">
+        <i class="fa-solid fa-network-wired"></i> Factor Decomposition
+      </button>
+      <button class="nav-btn" onclick="switchTab('copilot')">
+        <i class="fa-solid fa-brain"></i> Aladdin AI Copilot
+      </button>
+      <button class="nav-btn" onclick="switchTab('rebalance')">
+        <i class="fa-solid fa-scale-balanced"></i> Rebalance Studio
+      </button>
+    </nav>
+  </div>
+
+  <!-- Main Workspaces -->
+  <main>
+
+    <!-- TAB 1: OVERVIEW -->
+    <div id="tab-overview" class="tab-content active">
+      <!-- Top Metric Cards with Liquid Glass -->
+      <div class="grid-kpis">
+        <div class="liquid-card emerald">
+          <div class="card-title">Expected Annual Return <i class="fa-solid fa-arrow-trend-up" style="color: #10b981;"></i></div>
+          <div class="card-val mono text-gradient-emerald" id="kpi-return">13.79%</div>
+          <div class="card-sub">Active Spread: +2.29% vs S&P 500</div>
+        </div>
+        <div class="liquid-card amber">
+          <div class="card-title">Annualized Volatility <i class="fa-solid fa-chart-line" style="color: #f59e0b;"></i></div>
+          <div class="card-val mono" style="color: #fde68a;" id="kpi-vol">16.30%</div>
+          <div class="card-sub">Diversification Ratio: <span class="mono text-gradient-cyan" id="kpi-div">1.45x</span></div>
+        </div>
+        <div class="liquid-card cyan">
+          <div class="card-title">Sharpe Ratio (Rf=4.5%) <i class="fa-solid fa-award" style="color: #06b6d4;"></i></div>
+          <div class="card-val mono text-gradient-cyan" id="kpi-sharpe">0.57</div>
+          <div class="card-sub">Sortino Downside: <span class="mono" id="kpi-sortino">0.55</span></div>
+        </div>
+        <div class="liquid-card rose">
+          <div class="card-title">1-Day Historical VaR (95%) <i class="fa-solid fa-shield-virus" style="color: #f43f5e;"></i></div>
+          <div class="card-val mono text-gradient-rose" id="kpi-var95">$1.58M</div>
+          <div class="card-sub">Expected Shortfall (CVaR): <span class="mono" style="color: #fda4af;" id="kpi-cvar95">$2.42M</span></div>
+        </div>
+        <div class="liquid-card blue">
+          <div class="card-title">Portfolio Beta & Duration <i class="fa-solid fa-compass" style="color: #3b82f6;"></i></div>
+          <div class="card-val mono" style="color: #93c5fd;" id="kpi-beta">0.79</div>
+          <div class="card-sub">Duration: <span class="mono" id="kpi-duration">2.82 yrs</span></div>
+        </div>
+      </div>
+
+      <!-- Allocation & Top Holdings Grid -->
+      <div class="grid-3-1">
+        <div class="liquid-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-layer-group"></i> Active Multi-Asset Holdings Breakdown</h3>
+            <span class="badge badge-blue">15 Assets Active</span>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="holdings-table">
+              <thead>
+                <tr>
+                  <th>Ticker / Name</th>
+                  <th>Class / Sector</th>
+                  <th>Weight</th>
+                  <th>Position USD</th>
+                  <th>Beta</th>
+                  <th>Duration</th>
+                  <th>Liquidity</th>
+                </tr>
+              </thead>
+              <tbody id="holdings-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="liquid-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-chart-pie"></i> Asset Class Allocation</h3>
+          </div>
+          <div style="height: 330px; position: relative;">
+            <canvas id="allocationChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: ALADDIN RISK ENGINE & VAR -->
+    <div id="tab-risk" class="tab-content">
+      <div class="grid-2">
+        <div class="liquid-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-chart-area"></i> Monte Carlo Daily Loss Distribution & Cutoff VaR</h3>
+            <span class="badge badge-emerald">10,000 Cholesky Paths</span>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+            Simulated portfolio return probability density function based on Student-t fat-tail innovations with calibrated multi-asset covariance. Amber and Rose markers denote single-day capital at risk.
+          </p>
+          <div style="height: 340px;">
+            <canvas id="mcDistChart"></canvas>
+          </div>
+        </div>
+
+        <div class="liquid-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-calculator"></i> Multi-Methodology VaR Matrix</h3>
+            <span class="badge badge-blue">Basel Regulatory Standard</span>
+          </div>
+          <table class="data-table" style="margin-bottom: 22px;">
+            <thead>
+              <tr>
+                <th>Methodology</th>
+                <th>95% 1-Day VaR</th>
+                <th>99% 1-Day VaR</th>
+                <th>10-Day Horizon (x3.16)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Parametric (Cornish-Fisher)</strong></td>
+                <td class="mono" style="color: #fde68a;" id="var-param-95">-1.67% ($1.67M)</td>
+                <td class="mono text-gradient-rose" id="var-param-99">-2.93% ($2.93M)</td>
+                <td class="mono" id="var-param-10d">$5.28M</td>
+              </tr>
+              <tr>
+                <td><strong>Historical Simulation</strong></td>
+                <td class="mono" style="color: #fde68a;" id="var-hist-95">-1.58% ($1.58M)</td>
+                <td class="mono text-gradient-rose" id="var-hist-99">-2.70% ($2.70M)</td>
+                <td class="mono" id="var-hist-10d">$4.99M</td>
+              </tr>
+              <tr>
+                <td><strong>Monte Carlo (10,000 Paths)</strong></td>
+                <td class="mono" style="color: #fde68a;" id="var-mc-95">-1.60% ($1.60M)</td>
+                <td class="mono text-gradient-rose" id="var-hist-99b">-2.28% ($2.28M)</td>
+                <td class="mono" id="var-mc-10d">$5.06M</td>
+              </tr>
+              <tr style="background: rgba(244, 63, 94, 0.08);">
+                <td><strong>Conditional VaR (Expected Shortfall)</strong></td>
+                <td class="mono text-gradient-rose font-bold" id="cvar-val-95">-2.42% ($2.42M)</td>
+                <td class="mono text-gradient-rose font-bold" id="cvar-val-99">-3.45% ($3.45M)</td>
+                <td class="mono" id="cvar-val-10d">$7.65M</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="background: rgba(10, 18, 36, 0.7); border: 1px solid var(--glass-border); border-radius: 14px; padding: 16px; box-shadow: var(--specular-inset);">
+            <div style="font-size: 0.82rem; font-weight: 700; color: var(--liquid-cyan); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-lightbulb"></i> Institutional Chief Risk Officer Insight
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.55;">
+              Expected Shortfall (CVaR) exceeds Parametric VaR by <strong>+44.9%</strong>, reflecting fat-tail distribution in crypto and high-beta AI equities. On the 5% worst trading sessions, expected loss averages <strong>$2.42 Million</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liquidity Profile -->
+      <div class="liquid-panel">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-water"></i> Aladdin Liquidity & Days-to-Liquidate Profile</h3>
+          <span class="badge badge-emerald" id="liq-24h-badge">92.5% Liquidatable in 24h</span>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="liquidity-table">
+            <thead>
+              <tr>
+                <th>Ticker / Asset</th>
+                <th>Position Value</th>
+                <th>Portfolio Weight</th>
+                <th>24h Market Volume</th>
+                <th>Normal Liq (15% ADV)</th>
+                <th>Stressed Liq (5% ADV)</th>
+                <th>Est. Price Impact (Slippage)</th>
+                <th>Liquidity Tier</th>
+              </tr>
+            </thead>
+            <tbody id="liquidity-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: STRESS TESTING -->
+    <div id="tab-stress" class="tab-content">
+      <div class="liquid-panel" style="margin-bottom: 26px;">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-fire-flame-curved"></i> Historical Crisis & Extreme Macro Shock Simulator</h3>
+          <span class="badge badge-rose">Black Swan Stress Engine</span>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5;">
+          BlackRock Aladdin stress tests project exact mark-to-market performance across recognized global financial panics, stagflation episodes, and concentration rotations.
+        </p>
+        <div style="height: 380px;">
+          <canvas id="stressChart"></canvas>
+        </div>
+      </div>
+
+      <div class="liquid-panel">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-clipboard-check"></i> Scenario Diagnostics & Benchmark Alpha Attribution</h3>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="stress-table">
+            <thead>
+              <tr>
+                <th>Scenario Name</th>
+                <th>Description</th>
+                <th>Fund Impact (%)</th>
+                <th>Projected P&L ($)</th>
+                <th>S&P 500 Shock</th>
+                <th>Relative Alpha</th>
+                <th>Worst Vulnerability</th>
+                <th>Defensive Buffer</th>
+                <th>Assessment</th>
+              </tr>
+            </thead>
+            <tbody id="stress-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: OPTIMIZATION & BLACK-LITTERMAN -->
+    <div id="tab-optimizer" class="tab-content">
+      <div class="grid-2">
+        <div class="liquid-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-chart-line"></i> Markowitz Efficient Frontier</h3>
+            <span class="badge badge-cyan">SLSQP Quadratic Solver</span>
+          </div>
+          <div style="height: 340px;">
+            <canvas id="frontierChart"></canvas>
+          </div>
+        </div>
+
+        <div class="liquid-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-compass-drafting"></i> Portfolio Optimization Portfolios</h3>
+          </div>
+          <div style="display: flex; gap: 12px; margin-bottom: 18px;">
+            <button class="btn btn-primary" onclick="applyOptimizedWeights('max_sharpe')">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Apply Max Sharpe Weights
+            </button>
+            <button class="btn btn-outline" onclick="applyOptimizedWeights('risk_parity')">
+              <i class="fa-solid fa-shield"></i> Apply Risk Parity Weights
+            </button>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table" id="opt-comparison-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Current Portfolio</th>
+                  <th>Max Sharpe Portfolio</th>
+                  <th>Equal Risk Parity</th>
+                </tr>
+              </thead>
+              <tbody id="opt-comparison-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Black-Litterman Custom Views Studio -->
+      <div class="liquid-panel">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-brain"></i> Black-Litterman Asset Allocation Studio</h3>
+          <span class="badge badge-purple">He-Litterman Idzorek Formulation</span>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5;">
+          Inject subjective AI views or investment committee hypotheses into the market equilibrium prior ($\Pi = \delta \Sigma w_{mkt}$) to derive mathematically coherent posterior asset returns and optimal weights.
+        </p>
+
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; background: rgba(8, 14, 28, 0.6); padding: 18px; border-radius: 16px; border: 1px solid var(--glass-border);">
+          <div style="flex: 1; min-width: 140px;">
+            <label style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700;">Asset</label>
+            <select id="bl-asset-select" style="width: 100%; padding: 10px; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--glass-border); color: #fff; border-radius: 10px; outline:none;">
+              <option value="NVDA">NVDA (Nvidia)</option>
+              <option value="AAPL">AAPL (Apple)</option>
+              <option value="MSFT">MSFT (Microsoft)</option>
+              <option value="TLT">TLT (20+ Yr Treasuries)</option>
+              <option value="GLD">GLD (Gold)</option>
+              <option value="BTC">BTC (Bitcoin)</option>
+              <option value="XOM">XOM (ExxonMobil)</option>
+            </select>
+          </div>
+          <div style="flex: 1; min-width: 140px;">
+            <label style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700;">Expected Excess Return (%)</label>
+            <input type="number" id="bl-return-input" value="15.0" step="0.5" style="width: 100%; padding: 10px; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--glass-border); color: #fff; border-radius: 10px; outline:none;">
+          </div>
+          <div style="flex: 1; min-width: 140px;">
+            <label style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700;">Confidence Level (%)</label>
+            <input type="number" id="bl-conf-input" value="75" min="10" max="100" style="width: 100%; padding: 10px; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--glass-border); color: #fff; border-radius: 10px; outline:none;">
+          </div>
+          <div style="display: flex; align-items: flex-end;">
+            <button class="btn btn-primary" onclick="runCustomBlackLitterman()">
+              <i class="fa-solid fa-play"></i> Compute Posterior Weights
+            </button>
+          </div>
+        </div>
+
+        <div id="bl-results-box" style="display: none; background: rgba(6, 182, 212, 0.08); border: 1px solid var(--liquid-cyan); border-radius: 16px; padding: 18px;">
+          <h4 style="color: var(--liquid-cyan); margin-bottom: 10px;"><i class="fa-solid fa-circle-check"></i> Black-Litterman Posterior Solved</h4>
+          <div id="bl-results-content" style="font-size: 0.86rem; line-height: 1.6;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: FACTORS & CORRELATION -->
+    <div id="tab-factors" class="tab-content">
+      <div class="grid-2">
+        <div class="liquid-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-chart-column"></i> Multi-Factor Risk Sensitivity (Fama-French)</h3>
+            <span class="badge badge-blue">Active Loadings</span>
+          </div>
+          <div style="height: 340px;">
+            <canvas id="factorChart"></canvas>
+          </div>
+        </div>
+
+        <div class="liquid-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-earth-americas"></i> Macro Regime Classifier</h3>
+            <span class="badge badge-emerald">Live Quantitative Signals</span>
+          </div>
+          <div id="macro-regime-box" style="font-size: 0.9rem; line-height: 1.6;"></div>
+        </div>
+      </div>
+
+      <div class="liquid-panel">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-border-all"></i> Multi-Asset Cross-Correlation Matrix</h3>
+          <span class="badge badge-blue">15x15 Covariance Structure</span>
+        </div>
+        <div id="correlation-matrix-container" style="overflow-x: auto; padding: 12px 0;"></div>
+      </div>
+    </div>
+
+    <!-- TAB 6: ALADDIN AI COPILOT -->
+    <div id="tab-copilot" class="tab-content">
+      <div class="liquid-panel chat-container">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-robot"></i> Aladdin AI Quantitative Copilot</h3>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-outline" onclick="fetchInvestmentMemo()">
+              <i class="fa-solid fa-file-lines"></i> Generate Committee Memo
+            </button>
+            <button class="btn btn-outline" onclick="clearCopilotChat()">
+              <i class="fa-solid fa-trash"></i> Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="quick-prompts">
+          <button class="chip-btn" onclick="sendQuickPrompt('Run 2008 Lehman crisis stress test')">
+            <i class="fa-solid fa-bolt"></i> 2008 Lehman Crash
+          </button>
+          <button class="chip-btn" onclick="sendQuickPrompt('What is my Value at Risk and tail risk?')">
+            <i class="fa-solid fa-shield-virus"></i> Decompose VaR
+          </button>
+          <button class="chip-btn" onclick="sendQuickPrompt('How should we hedge technology drawdowns?')">
+            <i class="fa-solid fa-shield"></i> Hedging Strategy
+          </button>
+          <button class="chip-btn" onclick="sendQuickPrompt('Generate formal Investment Committee Memorandum')">
+            <i class="fa-solid fa-file-contract"></i> Investment Memo
+          </button>
+          <button class="chip-btn" onclick="sendQuickPrompt('Generate Black-Litterman optimal weights')">
+            <i class="fa-solid fa-sliders"></i> Black-Litterman Weights
+          </button>
+        </div>
+
+        <div class="chat-messages" id="chat-box">
+          <div class="msg copilot">
+            <strong><i class="fa-solid fa-shield-halved" style="color: var(--liquid-cyan);"></i> Aladdin Copilot:</strong><br/>
+            Greetings, Chief Investment Officer. Aladdin Risk Engine is calibrated for <strong>$100.0M AUM</strong> across 15 multi-asset holdings with iOS 27 Liquid Glass Visuals. How can I assist your risk committee or portfolio construction decisions today?
+          </div>
+        </div>
+
+        <div class="chat-input-row">
+          <input type="text" id="copilot-input" placeholder="Ask Aladdin Copilot (e.g. 'What happens if 10Y yield surges 100 bps?', 'Analyze tech concentration')..." onkeypress="if(event.key==='Enter') sendUserQuery()" />
+          <button class="btn btn-primary" onclick="sendUserQuery()">
+            <i class="fa-solid fa-paper-plane"></i> Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 7: REBALANCE STUDIO -->
+    <div id="tab-rebalance" class="tab-content">
+      <div class="liquid-panel">
+        <div class="panel-header">
+          <h3><i class="fa-solid fa-sliders"></i> Interactive Tactical Rebalance Studio</h3>
+          <div style="display: flex; gap: 14px; align-items: center;">
+            <span style="font-size: 0.88rem;">Total Weight: <strong id="rebalance-total-w" class="mono text-gradient-cyan">100.0%</strong></span>
+            <button class="btn btn-primary" onclick="submitRebalance()">
+              <i class="fa-solid fa-arrows-rotate"></i> Recalculate & Rebalance
+            </button>
+          </div>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 22px;">
+          Adjust portfolio weights across assets. Sliders adjust allocations in real-time with instant risk re-computation.
+        </p>
+
+        <div id="rebalance-sliders-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px;">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Global State
+    let activeTab = 'overview';
+    let portfolioData = null;
+    let riskMetrics = null;
+    let stressData = null;
+    let factorData = null;
+    let frontierData = null;
+    let charts = {};
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+      event.currentTarget.classList.add('active');
+      document.getElementById(`tab-${tabId}`).classList.add('active');
+      activeTab = tabId;
+
+      if (tabId === 'risk' && !charts.mcDist) renderRiskCharts();
+      if (tabId === 'stress' && !charts.stress) renderStressCharts();
+      if (tabId === 'optimizer' && !charts.frontier) renderOptimizerCharts();
+      if (tabId === 'factors' && !charts.factors) renderFactorCharts();
+    }
+
+    // Fetch initial datasets
+    async function initPlatform() {
+      try {
+        const [portRes, riskRes, stressRes, factorRes, regRes] = await Promise.all([
+          fetch('/api/portfolio').then(r => r.json()),
+          fetch('/api/risk/metrics').then(r => r.json()),
+          fetch('/api/risk/stress-test').then(r => r.json()),
+          fetch('/api/risk/factors').then(r => r.json()),
+          fetch('/api/ai/macro-regime').then(r => r.json())
+        ]);
+
+        portfolioData = portRes;
+        riskMetrics = riskRes;
+        stressData = stressRes;
+        factorData = factorRes;
+
+        renderOverview();
+        renderMacroRegime(regRes);
+        initRebalanceStudio();
+      } catch (err) {
+        console.error("Initialization error:", err);
+      }
+    }
+
+    function formatUSD(val) {
+      if (Math.abs(val) >= 1e6) return `$${(val / 1e6).toFixed(2)}M`;
+      if (Math.abs(val) >= 1e3) return `$${(val / 1e3).toFixed(0)}K`;
+      return `$${val.toFixed(2)}`;
+    }
+
+    function renderOverview() {
+      // Header
+      document.getElementById('hdr-aum').textContent = formatUSD(portfolioData.total_aum);
+      document.getElementById('hdr-var').textContent = formatUSD(riskMetrics.var_95_amount_usd);
+      document.getElementById('hdr-sharpe').textContent = riskMetrics.sharpe_ratio.toFixed(2);
+      document.getElementById('hdr-duration').textContent = `${riskMetrics.effective_duration.toFixed(2)} yrs`;
+
+      // KPI Cards
+      document.getElementById('kpi-return').textContent = `${(riskMetrics.expected_annual_return * 100).toFixed(2)}%`;
+      document.getElementById('kpi-vol').textContent = `${(riskMetrics.annual_volatility * 100).toFixed(2)}%`;
+      document.getElementById('kpi-div').textContent = `${riskMetrics.diversification_ratio.toFixed(2)}x`;
+      document.getElementById('kpi-sharpe').textContent = riskMetrics.sharpe_ratio.toFixed(2);
+      document.getElementById('kpi-sortino').textContent = riskMetrics.sortino_ratio.toFixed(2);
+      document.getElementById('kpi-var95').textContent = formatUSD(riskMetrics.var_95_amount_usd);
+      document.getElementById('kpi-cvar95').textContent = formatUSD(riskMetrics.cvar_95_amount_usd);
+      document.getElementById('kpi-beta').textContent = riskMetrics.portfolio_beta.toFixed(2);
+      document.getElementById('kpi-duration').textContent = `${riskMetrics.effective_duration.toFixed(2)} yrs`;
+
+      // Holdings table
+      const tbody = document.getElementById('holdings-tbody');
+      tbody.innerHTML = '';
+      portfolioData.holdings.forEach(h => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${h.ticker}</strong> <span style="color:var(--text-dim); font-size:0.75rem;">${h.name}</span></td>
+          <td><span class="badge badge-blue">${h.asset_class}</span> <span style="color:var(--text-dim); font-size:0.75rem;">${h.sector}</span></td>
+          <td class="mono font-bold">${(h.weight * 100).toFixed(1)}%</td>
+          <td class="mono">${formatUSD(h.market_value)}</td>
+          <td class="mono">${h.beta.toFixed(2)}</td>
+          <td class="mono">${h.duration > 0 ? h.duration.toFixed(1) + 'y' : '—'}</td>
+          <td><span class="badge badge-emerald">Tier 1</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Allocation Chart with Modern Glass Colors
+      const classes = {};
+      portfolioData.holdings.forEach(h => {
+        classes[h.asset_class] = (classes[h.asset_class] || 0) + h.weight;
+      });
+
+      const ctx = document.getElementById('allocationChart').getContext('2d');
+      if (charts.allocation) charts.allocation.destroy();
+      charts.allocation = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(classes),
+          datasets: [{
+            data: Object.values(classes).map(v => (v * 100).toFixed(1)),
+            backgroundColor: [
+              'rgba(6, 182, 212, 0.85)',
+              'rgba(59, 130, 246, 0.85)',
+              'rgba(16, 185, 129, 0.85)',
+              'rgba(245, 158, 11, 0.85)',
+              'rgba(168, 85, 247, 0.85)'
+            ],
+            borderColor: 'rgba(15, 23, 42, 0.8)',
+            borderWidth: 4,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 12, padding: 16 } }
+          },
+          cutout: '68%'
+        }
+      });
+    }
+
+    async function renderRiskCharts() {
+      const distData = await fetch('/api/risk/distribution').then(r => r.json());
+      const ctx = document.getElementById('mcDistChart').getContext('2d');
+
+      // Gradient fill for Monte Carlo distribution
+      const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+      gradient.addColorStop(0, 'rgba(6, 182, 212, 0.35)');
+      gradient.addColorStop(1, 'rgba(6, 182, 212, 0.0)');
+
+      if (charts.mcDist) charts.mcDist.destroy();
+      charts.mcDist = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: distData.bin_centers.map(c => c.toFixed(1) + '%'),
+          datasets: [{
+            label: 'Density',
+            data: distData.density,
+            borderColor: '#06b6d4',
+            backgroundColor: gradient,
+            fill: true,
+            tension: 0.38,
+            pointRadius: 0,
+            borderWidth: 2.5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', maxTicksLimit: 12 } },
+            y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      // Populate Liquidity Table
+      const liqData = await fetch('/api/risk/liquidity').then(r => r.json());
+      const liqTbody = document.getElementById('liquidity-tbody');
+      liqTbody.innerHTML = '';
+      liqData.positions.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${p.ticker}</strong> <span style="font-size:0.75rem; color:var(--text-dim);">${p.name}</span></td>
+          <td class="mono">${formatUSD(p.market_value)}</td>
+          <td class="mono">${p.weight_pct}%</td>
+          <td class="mono">${formatUSD(p.daily_volume_usd)}</td>
+          <td class="mono text-gradient-emerald font-bold">${p.days_to_liquidate_normal.toFixed(2)}d</td>
+          <td class="mono" style="color:#fde68a;">${p.days_to_liquidate_stressed.toFixed(2)}d</td>
+          <td class="mono">${p.estimated_impact_bps} bps</td>
+          <td><span class="badge ${p.days_to_liquidate_normal <= 1.0 ? 'badge-emerald' : 'badge-amber'}">${p.liquidity_tier}</span></td>
+        `;
+        liqTbody.appendChild(tr);
+      });
+    }
+
+    async function renderStressCharts() {
+      const ctx = document.getElementById('stressChart').getContext('2d');
+      const labels = stressData.map(s => s.scenario_name);
+      const portReturns = stressData.map(s => s.portfolio_return_pct);
+      const benchReturns = stressData.map(s => s.benchmark_return_pct);
+
+      if (charts.stress) charts.stress.destroy();
+      charts.stress = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Portfolio Impact (%)',
+              data: portReturns,
+              backgroundColor: portReturns.map(v => v >= 0 ? 'rgba(16, 185, 129, 0.85)' : 'rgba(244, 63, 94, 0.85)'),
+              borderRadius: 8,
+              borderWidth: 1,
+              borderColor: 'rgba(255, 255, 255, 0.15)'
+            },
+            {
+              label: 'S&P 500 Benchmark Shock (%)',
+              data: benchReturns,
+              backgroundColor: 'rgba(100, 116, 139, 0.45)',
+              borderRadius: 8,
+              borderWidth: 1,
+              borderColor: 'rgba(255, 255, 255, 0.08)'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+            y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } }
+          },
+          plugins: {
+            legend: { labels: { color: '#94a3b8', padding: 14 } }
+          }
+        }
+      });
+
+      // Populate Stress Table
+      const tbody = document.getElementById('stress-tbody');
+      tbody.innerHTML = '';
+      stressData.forEach(s => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${s.scenario_name}</strong></td>
+          <td style="font-size:0.75rem; color:var(--text-muted); max-width:240px;">${s.description}</td>
+          <td class="mono font-bold ${s.portfolio_return_pct < 0 ? 'text-gradient-rose' : 'text-gradient-emerald'}">${s.portfolio_return_pct > 0 ? '+' : ''}${s.portfolio_return_pct}%</td>
+          <td class="mono font-bold ${s.portfolio_pnl_usd < 0 ? 'text-gradient-rose' : 'text-gradient-emerald'}">${formatUSD(s.portfolio_pnl_usd)}</td>
+          <td class="mono text-muted">${s.benchmark_return_pct}%</td>
+          <td class="mono font-bold text-gradient-cyan">${s.relative_alpha_pct > 0 ? '+' : ''}${s.relative_alpha_pct}%</td>
+          <td style="font-size:0.75rem;"><span style="color:#fda4af; font-weight:700;">${s.worst_asset}</span> (${s.worst_asset_return_pct}%)</td>
+          <td style="font-size:0.75rem;"><span style="color:#6ee7b7; font-weight:700;">${s.best_asset}</span> (${s.best_asset_return_pct}%)</td>
+          <td><span class="badge ${s.portfolio_return_pct > -0.15 ? 'badge-emerald' : 'badge-amber'}">${s.portfolio_return_pct > -0.15 ? 'RESILIENT' : 'MODERATE'}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function renderOptimizerCharts() {
+      const [frontierRes, rpRes] = await Promise.all([
+        fetch('/api/optimize/frontier').then(r => r.json()),
+        fetch('/api/optimize/risk-parity').then(r => r.json())
+      ]);
+      frontierData = frontierRes;
+
+      const ctx = document.getElementById('frontierChart').getContext('2d');
+      const frontierPts = frontierRes.frontier.map(p => ({ x: p.volatility * 100, y: p.return * 100 }));
+
+      if (charts.frontier) charts.frontier.destroy();
+      charts.frontier = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'Efficient Frontier Curve',
+              data: frontierPts,
+              borderColor: '#38bdf8',
+              backgroundColor: 'rgba(56, 189, 248, 0.25)',
+              showLine: true,
+              pointRadius: 1,
+              tension: 0.35,
+              borderWidth: 2.5
+            },
+            {
+              label: 'Current Portfolio',
+              data: [{ x: riskMetrics.annual_volatility * 100, y: riskMetrics.expected_annual_return * 100 }],
+              backgroundColor: '#f59e0b',
+              borderColor: '#ffffff',
+              borderWidth: 2,
+              pointRadius: 9,
+              pointHoverRadius: 12
+            },
+            {
+              label: 'Maximum Sharpe Portfolio',
+              data: [{ x: frontierRes.max_sharpe.volatility * 100, y: frontierRes.max_sharpe.expected_return * 100 }],
+              backgroundColor: '#10b981',
+              borderColor: '#ffffff',
+              borderWidth: 2,
+              pointRadius: 9,
+              pointHoverRadius: 12
+            },
+            {
+              label: 'Minimum Volatility Portfolio',
+              data: [{ x: frontierRes.min_volatility.volatility * 100, y: frontierRes.min_volatility.expected_return * 100 }],
+              backgroundColor: '#06b6d4',
+              borderColor: '#ffffff',
+              borderWidth: 2,
+              pointRadius: 9,
+              pointHoverRadius: 12
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { title: { display: true, text: 'Annualized Volatility (%)', color: '#94a3b8' }, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+            y: { title: { display: true, text: 'Expected Return (%)', color: '#94a3b8' }, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } }
+          },
+          plugins: {
+            legend: { labels: { color: '#94a3b8', padding: 14 } }
+          }
+        }
+      });
+
+      // Comparison Table
+      const tbody = document.getElementById('opt-comparison-tbody');
+      tbody.innerHTML = `
+        <tr>
+          <td><strong>Expected Return</strong></td>
+          <td class="mono font-bold">${(riskMetrics.expected_annual_return * 100).toFixed(2)}%</td>
+          <td class="mono text-gradient-emerald font-bold">${(frontierRes.max_sharpe.expected_return * 100).toFixed(2)}%</td>
+          <td class="mono text-gradient-cyan font-bold">${(rpRes.expected_return * 100).toFixed(2)}%</td>
+        </tr>
+        <tr>
+          <td><strong>Annualized Volatility</strong></td>
+          <td class="mono">${(riskMetrics.annual_volatility * 100).toFixed(2)}%</td>
+          <td class="mono text-gradient-emerald">${(frontierRes.max_sharpe.volatility * 100).toFixed(2)}%</td>
+          <td class="mono text-gradient-cyan">${(rpRes.volatility * 100).toFixed(2)}%</td>
+        </tr>
+        <tr>
+          <td><strong>Sharpe Ratio</strong></td>
+          <td class="mono">${riskMetrics.sharpe_ratio.toFixed(2)}</td>
+          <td class="mono text-gradient-emerald font-bold">${frontierRes.max_sharpe.sharpe_ratio.toFixed(2)}</td>
+          <td class="mono text-gradient-cyan font-bold">${rpRes.sharpe_ratio.toFixed(2)}</td>
+        </tr>
+      `;
+    }
+
+    async function runCustomBlackLitterman() {
+      const asset = document.getElementById('bl-asset-select').value;
+      const retPct = parseFloat(document.getElementById('bl-return-input').value) / 100.0;
+      const confPct = parseFloat(document.getElementById('bl-conf-input').value) / 100.0;
+
+      const res = await fetch('/api/optimize/black-litterman', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          views: [{ view_type: 'absolute', asset: asset, expected_excess_return: retPct, confidence: confPct }],
+          delta: 2.5,
+          tau: 0.05
+        })
+      }).then(r => r.json());
+
+      const resBox = document.getElementById('bl-results-box');
+      const content = document.getElementById('bl-results-content');
+      resBox.style.display = 'block';
+
+      let topWeights = Object.entries(res.optimal_weights)
+        .filter(([k, v]) => v > 0.02)
+        .sort((a, b) => b[1] - a[1])
+        .map(([k, v]) => `<strong>${k}:</strong> ${(v * 100).toFixed(1)}%`)
+        .join(', ');
+
+      content.innerHTML = `
+        <div><strong>Prior Market Implied Return for ${asset}:</strong> ${(res.prior_implied_returns[asset] * 100).toFixed(2)}%</div>
+        <div><strong>Posterior Expected Return after view:</strong> <span class="mono text-gradient-emerald font-bold">${(res.posterior_expected_returns[asset] * 100).toFixed(2)}%</span></div>
+        <div style="margin-top: 6px;"><strong>Resulting Portfolio Sharpe:</strong> ${res.sharpe_ratio.toFixed(2)} | <strong>Expected Return:</strong> ${(res.expected_return * 100).toFixed(2)}%</div>
+        <div style="margin-top: 6px;"><strong>Suggested Reallocation:</strong> ${topWeights}</div>
+      `;
+    }
+
+    async function applyOptimizedWeights(type) {
+      let targetWeights;
+      if (type === 'max_sharpe') {
+        targetWeights = frontierData.max_sharpe.weights;
+      } else {
+        const rp = await fetch('/api/optimize/risk-parity').then(r => r.json());
+        targetWeights = rp.weights;
+      }
+
+      await fetch('/api/portfolio/rebalance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ weights: targetWeights, total_aum: portfolioData.total_aum })
+      });
+
+      alert(`Successfully applied ${type.replace('_', ' ').toUpperCase()} weights! Refreshing analytics...`);
+      await initPlatform();
+    }
+
+    async function renderFactorCharts() {
+      const ctx = document.getElementById('factorChart').getContext('2d');
+      const labels = factorData.map(f => f.factor_name);
+      const exposures = factorData.map(f => f.exposure);
+      const bench = factorData.map(f => f.benchmark_exposure);
+
+      if (charts.factors) charts.factors.destroy();
+      charts.factors = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Portfolio Exposure',
+              data: exposures,
+              backgroundColor: 'rgba(59, 130, 246, 0.85)',
+              borderRadius: 6,
+              borderWidth: 1,
+              borderColor: 'rgba(255, 255, 255, 0.15)'
+            },
+            {
+              label: 'S&P 500 Benchmark',
+              data: bench,
+              backgroundColor: 'rgba(100, 116, 139, 0.45)',
+              borderRadius: 6,
+              borderWidth: 1,
+              borderColor: 'rgba(255, 255, 255, 0.08)'
+            }
+          ]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+            y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } }
+          },
+          plugins: {
+            legend: { labels: { color: '#94a3b8', padding: 14 } }
+          }
+        }
+      });
+
+      // Correlation Matrix
+      const corrRes = await fetch('/api/risk/correlation').then(r => r.json());
+      const container = document.getElementById('correlation-matrix-container');
+      const tickers = corrRes.tickers;
+      const mat = corrRes.matrix;
+
+      let html = `<table class="data-table" style="text-align:center;"><thead><tr><th>Asset</th>`;
+      tickers.forEach(t => html += `<th>${t}</th>`);
+      html += `</tr></thead><tbody>`;
+
+      for (let i = 0; i < tickers.length; i++) {
+        html += `<tr><td><strong>${tickers[i]}</strong></td>`;
+        for (let j = 0; j < tickers.length; j++) {
+          const val = mat[i][j];
+          let bg = 'rgba(255,255,255,0.02)';
+          if (val > 0.6) bg = 'rgba(244, 63, 94, 0.35)';
+          else if (val > 0.3) bg = 'rgba(245, 158, 11, 0.2)';
+          else if (val < 0) bg = 'rgba(16, 185, 129, 0.3)';
+          html += `<td style="background:${bg}; border-radius:4px;" class="mono">${val.toFixed(2)}</td>`;
+        }
+        html += `</tr>`;
+      }
+      html += `</tbody></table>`;
+      container.innerHTML = html;
+    }
+
+    function renderMacroRegime(r) {
+      const box = document.getElementById('macro-regime-box');
+      box.innerHTML = `
+        <div style="margin-bottom: 14px; padding: 16px; background: rgba(16, 185, 129, 0.08); border-radius: 14px; border: 1px solid rgba(16, 185, 129, 0.3); box-shadow: var(--specular-inset);">
+          <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--liquid-emerald); font-weight: 800; letter-spacing: 0.8px;">Active Macro Cycle</div>
+          <div style="font-size: 1.22rem; font-weight: 800; color: #fff; margin-top: 4px;">${r.current_regime}</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+          <div style="background: rgba(6, 11, 22, 0.6); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.06);">
+            <div style="font-size:0.68rem; color:var(--text-dim); font-weight:700;">GROWTH SIGNAL</div>
+            <div style="font-weight:700; margin-top: 4px;">${r.growth_signal}</div>
+          </div>
+          <div style="background: rgba(6, 11, 22, 0.6); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.06);">
+            <div style="font-size:0.68rem; color:var(--text-dim); font-weight:700;">INFLATION SIGNAL</div>
+            <div style="font-weight:700; margin-top: 4px;">${r.inflation_signal}</div>
+          </div>
+        </div>
+        <div style="background: rgba(6, 11, 22, 0.6); padding: 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.06); margin-bottom: 14px;">
+          <div style="font-size:0.68rem; color:var(--text-dim); font-weight:700;">MONETARY POLICY BIAS</div>
+          <div style="font-weight:700; margin-top: 4px;">${r.monetary_policy_bias}</div>
+        </div>
+        <div style="padding: 14px; background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--liquid-blue); border-radius: 10px; border-top: 1px solid rgba(255,255,255,0.06); border-right: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:0.7rem; color:#93c5fd; font-weight:800; letter-spacing:0.6px;">STRATEGIC POSTURE</div>
+          <div style="font-size:0.84rem; color:var(--text-muted); margin-top: 4px; line-height: 1.5;">${r.recommended_asset_posture}</div>
+        </div>
+      `;
+    }
+
+    // Rebalance Studio
+    function initRebalanceStudio() {
+      const grid = document.getElementById('rebalance-sliders-grid');
+      grid.innerHTML = '';
+      portfolioData.holdings.forEach(h => {
+        const div = document.createElement('div');
+        div.className = 'rebalance-item';
+        div.innerHTML = `
+          <div><strong>${h.ticker}</strong> <div style="font-size:0.7rem; color:var(--text-dim);">${h.asset_class}</div></div>
+          <input type="range" id="slider-${h.ticker}" min="0" max="35" step="0.5" value="${(h.weight * 100).toFixed(1)}" oninput="updateRebalanceDisplay()" />
+          <div class="mono font-bold text-right text-gradient-cyan" id="val-${h.ticker}">${(h.weight * 100).toFixed(1)}%</div>
+        `;
+        grid.appendChild(div);
+      });
+      updateRebalanceDisplay();
+    }
+
+    function updateRebalanceDisplay() {
+      let total = 0;
+      portfolioData.holdings.forEach(h => {
+        const slider = document.getElementById(`slider-${h.ticker}`);
+        const valSpan = document.getElementById(`val-${h.ticker}`);
+        if (slider && valSpan) {
+          const val = parseFloat(slider.value);
+          valSpan.textContent = `${val.toFixed(1)}%`;
+          total += val;
+        }
+      });
+      const totElem = document.getElementById('rebalance-total-w');
+      totElem.textContent = `${total.toFixed(1)}%`;
+      totElem.style.color = Math.abs(total - 100.0) < 0.1 ? 'var(--liquid-emerald)' : 'var(--liquid-rose)';
+    }
+
+    async function submitRebalance() {
+      const weights = {};
+      portfolioData.holdings.forEach(h => {
+        const slider = document.getElementById(`slider-${h.ticker}`);
+        weights[h.ticker] = parseFloat(slider.value) / 100.0;
+      });
+
+      await fetch('/api/portfolio/rebalance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ weights: weights, total_aum: portfolioData.total_aum })
+      });
+
+      alert('Portfolio successfully rebalanced! Refreshing Aladdin risk calculations...');
+      await initPlatform();
+    }
+
+    // Copilot Chat
+    async function sendUserQuery() {
+      const input = document.getElementById('copilot-input');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+
+      appendMessage('user', text);
+      const loadingId = appendMessage('copilot', '<i class="fa-solid fa-spinner fa-spin" style="color:var(--liquid-cyan);"></i> Calculating Aladdin quant risk metrics...');
+
+      try {
+        const res = await fetch('/api/ai/query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: text })
+        }).then(r => r.json());
+
+        const html = marked.parse(res.answer);
+        updateMessage(loadingId, html);
+      } catch (err) {
+        updateMessage(loadingId, `<span style="color:var(--liquid-rose);">Error connecting to Aladdin Copilot: ${err.message}</span>`);
+      }
+    }
+
+    function sendQuickPrompt(promptText) {
+      document.getElementById('copilot-input').value = promptText;
+      sendUserQuery();
+    }
+
+    async function fetchInvestmentMemo() {
+      appendMessage('user', 'Generate formal Investment Committee Memorandum');
+      const loadingId = appendMessage('copilot', '<i class="fa-solid fa-spinner fa-spin" style="color:var(--liquid-cyan);"></i> Generating formal Investment Committee Risk Memo...');
+      const res = await fetch('/api/ai/memo').then(r => r.json());
+      const html = marked.parse(res.memo);
+      updateMessage(loadingId, html);
+    }
+
+    function appendMessage(role, content) {
+      const box = document.getElementById('chat-box');
+      const div = document.createElement('div');
+      const id = 'msg-' + Date.now() + Math.random();
+      div.id = id;
+      div.className = `msg ${role}`;
+      div.innerHTML = role === 'user' ? content : `<strong><i class="fa-solid fa-shield-halved" style="color:var(--liquid-cyan);"></i> Aladdin Copilot:</strong><br/>${content}`;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+      return id;
+    }
+
+    function updateMessage(id, newHtml) {
+      const elem = document.getElementById(id);
+      if (elem) {
+        elem.innerHTML = `<strong><i class="fa-solid fa-shield-halved" style="color:var(--liquid-cyan);"></i> Aladdin Copilot:</strong><br/>${newHtml}`;
+        document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
+      }
+    }
+
+    function clearCopilotChat() {
+      document.getElementById('chat-box').innerHTML = `
+        <div class="msg copilot">
+          <strong><i class="fa-solid fa-shield-halved" style="color:var(--liquid-cyan);"></i> Aladdin Copilot:</strong><br/>
+          Session memory reset. Standing by for queries.
+        </div>
+      `;
+    }
+
+    // Startup
+    window.addEventListener('DOMContentLoaded', initPlatform);
+  </script>
+</body>
+</html>

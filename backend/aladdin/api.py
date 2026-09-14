@@ -24,8 +24,8 @@ from aladdin.portfolio_optimizer import portfolio_optimizer
 from aladdin.ai_copilot import aladdin_ai_copilot
 
 app = FastAPI(
-    title="Aladdin-AI Financial Risk & Intelligence Network",
-    description="Enterprise multi-asset portfolio management, Black-Litterman optimization, and stress risk platform inspired by BlackRock Aladdin.",
+    title="ASHFX-AI Financial Risk & Intelligence Network",
+    description="Enterprise multi-asset portfolio management, Black-Litterman optimization, and stress risk platform.",
     version="2.0.0"
 )
 
@@ -83,7 +83,7 @@ def rebalance_portfolio(req: RebalanceRequest):
         })
 
     current_portfolio = PortfolioState(
-        portfolio_name="BlackRock Global Alpha & Multi-Asset Parity Fund",
+        portfolio_name="ASHFX Global Alpha & Multi-Asset Parity Fund",
         base_currency="USD",
         total_aum=req.total_aum,
         cash_balance=req.total_aum * normalized_w.get("BIL", 0.03),

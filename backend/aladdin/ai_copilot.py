@@ -85,7 +85,7 @@ class AladdinAICopilot:
 
         if "stress" in q or "crisis" in q or "crash" in q or "2008" in q or "covid" in q:
             lines = [
-                f"### **Aladdin Stress Testing & Historical Scenario Analysis**",
+                f"### **ASHFX Stress Testing & Historical Scenario Analysis**",
                 f"**Portfolio AUM:** ${aum_m:.1f}M USD | **Current Sharpe Ratio:** {metrics.sharpe_ratio:.2f}\n",
                 "Below are the calculated mark-to-market impacts across historical crisis scenarios:",
                 "| Scenario | Portfolio Return | Projected P&L | Worst Hit Asset | Benchmark Alpha |",
@@ -97,7 +97,7 @@ class AladdinAICopilot:
             return "\n".join(lines)
 
         elif "var" in q or "value at risk" in q or "tail risk" in q or "downside" in q:
-            return f"""### **Aladdin Value at Risk (VaR) & Tail Risk Decomposition**
+            return f"""### **ASHFX Value at Risk (VaR) & Tail Risk Decomposition**
 
 **Portfolio AUM:** ${aum_m:.1f}M USD | **Effective Duration:** {metrics.effective_duration:.2f} yrs | **Beta:** {metrics.portfolio_beta:.2f}
 
@@ -115,9 +115,9 @@ class AladdinAICopilot:
 """
 
         elif "hedge" in q or "hedging" in q or "protect" in q:
-            return f"""### **Aladdin Tactical Hedging & Tail-Risk Protection Strategy**
+            return f"""### **ASHFX Tactical Hedging & Tail-Risk Protection Strategy**
 
-To neutralize portfolio vulnerabilities without liquidating long-term core equity compounders, Aladdin recommends:
+To neutralize portfolio vulnerabilities without liquidating long-term core equity compounders, ASHFX recommends:
 
 1. **Macro Beta Hedge (SPX Put Collar / Tail Risk Swaps):**
    - **Structure:** Buy 3-month SPX 95% Put, Sell 105% Call (Zero-Cost Collar) on 25% of equity delta.
@@ -135,7 +135,7 @@ To neutralize portfolio vulnerabilities without liquidating long-term core equit
         elif "optimize" in q or "black litterman" in q or "rebalance" in q:
             ms = self.optimizer.optimize_max_sharpe()
             rp = self.optimizer.optimize_risk_parity()
-            return f"""### **Aladdin Portfolio Optimization & Rebalancing Diagnostics**
+            return f"""### **ASHFX Portfolio Optimization & Rebalancing Diagnostics**
 
 #### **1. Tangency Portfolio (Maximum Sharpe Ratio)**
 - **Target Sharpe:** `{ms['sharpe_ratio']:.2f}` (Current: `{metrics.sharpe_ratio:.2f}`)
@@ -158,7 +158,7 @@ To neutralize portfolio vulnerabilities without liquidating long-term core equit
 
         else:
             # General comprehensive intelligence response
-            return f"""### **BlackRock Aladdin AI Intelligence Brief**
+            return f"""### **ASHFX-AI Intelligence Brief**
 
 **Portfolio Status Overview:**
 - **Fund Name:** {portfolio.portfolio_name}
@@ -169,7 +169,7 @@ To neutralize portfolio vulnerabilities without liquidating long-term core equit
 - **1-Day 95% Historical VaR:** `${metrics.var_95_amount_usd / 1e6:.2f}M` (`{metrics.var_95_daily_historical * 100:.2f}%`)
 - **1-Day 95% Expected Shortfall (CVaR):** `${metrics.cvar_95_amount_usd / 1e6:.2f}M`
 
-**Aladdin Key Observations:**
+**ASHFX Key Observations:**
 1. **Factor Exposure:** Portfolio holds a strong positive tilt to **High Quality (+1.42)** and **Momentum (+0.95)**, with slight underweight to deep value.
 2. **Stress Resilience:** Under a 2020 COVID-style shock, projected drawdown is **-18.4%**, outperforming the S&P 500 benchmark (-34.0%) by **+15.6% alpha** thanks to Treasury and Gold decorrelation.
 3. **Liquidity:** 84.5% of fund assets can be liquidated inside 24 hours under standard 15% volume participation.

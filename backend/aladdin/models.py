@@ -20,7 +20,7 @@ class AssetHolding(BaseModel):
     daily_volume: float = 10000000.0
 
 class PortfolioState(BaseModel):
-    portfolio_name: str = "BlackRock Global Alpha & Risk Parity Fund"
+    portfolio_name: str = "ASHFX Global Alpha & Multi-Asset Parity Fund"
     base_currency: str = "USD"
     total_aum: float = 100_000_000.0  # $100M baseline AUM
     cash_balance: float = 5_000_000.0

@@ -1,16 +1,16 @@
-# Aladdin-AI: Institutional Financial Intelligence & Risk Network
+# ASHFX-AI: Institutional Financial Intelligence & Risk Network
 
 > **Enterprise Multi-Asset Portfolio Management, Black-Litterman Optimization & Stress Risk Platform**  
-> *Architected after BlackRock Aladdin® and institutional quantitative risk systems.*
+> *Equipped with Apple iOS 27 Liquid Glass Visuals & Institutional Quantitative Risk Architecture.*
 
 ---
 
 ## 🏛️ Architecture Overview
 
-**Aladdin-AI** brings institutional-grade portfolio construction, enterprise risk analytics, and quantitative AI reasoning into a cohesive system. It models an active **$100,000,000 USD** institutional multi-asset book across Equities, Fixed Income, Commodities, Digital Assets, and Cash.
+**ASHFX-AI** brings institutional-grade portfolio construction, enterprise risk analytics, and quantitative AI reasoning into a cohesive system. It models an active **$100,000,000 USD** multi-asset book across Equities, Fixed Income, Commodities, Digital Assets, and Cash.
 
 ```
-aladdin-ai/
+ashfx-ai/
 ├── backend/
 │   └── aladdin/
 │       ├── models.py              # Pydantic schemas for portfolios, risk metrics, and views
@@ -21,7 +21,7 @@ aladdin-ai/
 │       └── api.py                 # FastAPI endpoints & static UI routing
 ├── frontend/
 │   └── static/
-│       └── index.html             # Institutional dark Bloomberg/Aladdin Terminal UI
+│       └── index.html             # Apple iOS 27 Liquid Glass terminal interface
 ├── run.sh                         # Quick startup script
 └── README.md
 ```
@@ -30,7 +30,7 @@ aladdin-ai/
 
 ## 🔬 Core Quantitative Modules
 
-### 1. Aladdin Enterprise Risk Analytics (`risk_engine.py`)
+### 1. ASHFX Enterprise Risk Analytics (`risk_engine.py`)
 - **Value at Risk (VaR)**:
   - **Parametric VaR**: Higher-moment adjusted Cornish-Fisher expansion capturing skewness and kurtosis.
   - **Historical Simulation VaR**: Empirical quantile calculation over historical daily distributions.
@@ -57,7 +57,7 @@ aladdin-ai/
 - **Equal Risk Contribution (ERC / Risk Parity)**:
   - Solves for asset weights where each component contributes an equal share ($1/N$) of total portfolio volatility.
 
-### 3. Aladdin AI Copilot & Macro Intelligence (`ai_copilot.py`)
+### 3. ASHFX AI Copilot & Macro Intelligence (`ai_copilot.py`)
 - **Macroeconomic Regime Detection**: Classifies market into Goldilocks, Reflation, Stagflation, or Contraction regimes.
 - **Tail-Risk Diagnostics**: Identifies equity concentration, beta drift, and duration exposure.
 - **Tactical Hedging Engine**: Generates zero-cost collar structures, duration immunizations, and convexity hedges.
@@ -69,11 +69,11 @@ aladdin-ai/
 
 ### Launch the Platform
 ```bash
-/Users/admin/aladdin-ai/run.sh
+./run.sh
 ```
 Or directly with uvicorn:
 ```bash
-PYTHONPATH=/Users/admin/aladdin-ai/backend /Users/admin/.venv/bin/uvicorn aladdin.api:app --host 0.0.0.0 --port 8888 --reload
+PYTHONPATH=./backend python -m uvicorn aladdin.api:app --host 0.0.0.0 --port 8888 --reload
 ```
 
 ### Access the Web Terminal
@@ -97,6 +97,6 @@ Open your browser to:
 | `/api/optimize/frontier` | `GET` | Markowitz efficient frontier curve points & tangency portfolio |
 | `/api/optimize/black-litterman` | `POST` | Execute Black-Litterman with subjective investor views |
 | `/api/optimize/risk-parity` | `GET` | Equal Risk Contribution (ERC) weights |
-| `/api/ai/query` | `POST` | Natural language queries to Aladdin Copilot |
+| `/api/ai/query` | `POST` | Natural language queries to ASHFX Copilot |
 | `/api/ai/macro-regime` | `GET` | Macro cycle signals, inflation trend, and recommended posture |
 | `/api/ai/memo` | `GET` | Formal Chief Investment Officer Investment Committee Memorandum |

@@ -348,7 +348,7 @@ class MarketDataEngine:
 
         cash_bal = total_aum * DEFAULT_WEIGHTS.get("BIL", 0.03)
         return PortfolioState(
-            portfolio_name="BlackRock Global Alpha & Multi-Asset Parity Fund",
+            portfolio_name="ASHFX Global Alpha & Multi-Asset Parity Fund",
             base_currency="USD",
             total_aum=total_aum,
             cash_balance=cash_bal,

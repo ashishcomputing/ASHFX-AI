@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aladdin-AI | Apple Liquid Glass Enterprise Finance</title>
+  <title>ASHFX-AI | Enterprise Financial Intelligence & Risk Network</title>
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Marked for Markdown rendering -->
@@ -802,11 +802,11 @@
     <div class="brand-group">
       <div class="logo-badge">
         <i class="fa-solid fa-shield-halved"></i>
-        <span>ALADDIN-AI</span>
+        <span>ASHFX-AI</span>
       </div>
       <div class="system-status">
         <div class="pulse-dot"></div>
-        <span>APPLE LIQUID OS 27 ENGINE ACTIVE</span>
+        <span>ASHFX LIQUID OS 27 ENGINE ACTIVE</span>
       </div>
     </div>
 
@@ -837,7 +837,7 @@
         <i class="fa-solid fa-chart-pie"></i> Portfolio Hub
       </button>
       <button class="nav-btn" onclick="switchTab('risk')">
-        <i class="fa-solid fa-wave-square"></i> Aladdin Risk & VaR
+        <i class="fa-solid fa-wave-square"></i> ASHFX Risk & VaR
       </button>
       <button class="nav-btn" onclick="switchTab('stress')">
         <i class="fa-solid fa-bolt-lightning"></i> Crisis Stress Matrix
@@ -849,7 +849,7 @@
         <i class="fa-solid fa-network-wired"></i> Factor Decomposition
       </button>
       <button class="nav-btn" onclick="switchTab('copilot')">
-        <i class="fa-solid fa-brain"></i> Aladdin AI Copilot
+        <i class="fa-solid fa-brain"></i> ASHFX AI Copilot
       </button>
       <button class="nav-btn" onclick="switchTab('rebalance')">
         <i class="fa-solid fa-scale-balanced"></i> Rebalance Studio
@@ -1184,7 +1184,7 @@
     <div id="tab-copilot" class="tab-content">
       <div class="liquid-panel chat-container">
         <div class="panel-header">
-          <h3><i class="fa-solid fa-robot"></i> Aladdin AI Quantitative Copilot</h3>
+          <h3><i class="fa-solid fa-robot"></i> ASHFX AI Quantitative Copilot</h3>
           <div style="display: flex; gap: 10px;">
             <button class="btn btn-outline" onclick="fetchInvestmentMemo()">
               <i class="fa-solid fa-file-lines"></i> Generate Committee Memo
@@ -1215,13 +1215,13 @@
 
         <div class="chat-messages" id="chat-box">
           <div class="msg copilot">
-            <strong><i class="fa-solid fa-shield-halved" style="color: var(--liquid-cyan);"></i> Aladdin Copilot:</strong><br/>
-            Greetings, Chief Investment Officer. Aladdin Risk Engine is calibrated for <strong>$100.0M AUM</strong> across 15 multi-asset holdings with iOS 27 Liquid Glass Visuals. How can I assist your risk committee or portfolio construction decisions today?
+            <strong><i class="fa-solid fa-shield-halved" style="color: var(--liquid-cyan);"></i> ASHFX Copilot:</strong><br/>
+            Greetings, Chief Investment Officer. ASHFX Risk Engine is calibrated for <strong>$100.0M AUM</strong> across 15 multi-asset holdings with iOS 27 Liquid Glass Visuals. How can I assist your risk committee or portfolio construction decisions today?
           </div>
         </div>
 
         <div class="chat-input-row">
-          <input type="text" id="copilot-input" placeholder="Ask Aladdin Copilot (e.g. 'What happens if 10Y yield surges 100 bps?', 'Analyze tech concentration')..." onkeypress="if(event.key==='Enter') sendUserQuery()" />
+          <input type="text" id="copilot-input" placeholder="Ask ASHFX Copilot (e.g. 'What happens if 10Y yield surges 100 bps?', 'Analyze tech concentration')..." onkeypress="if(event.key==='Enter') sendUserQuery()" />
           <button class="btn btn-primary" onclick="sendUserQuery()">
             <i class="fa-solid fa-paper-plane"></i> Send
           </button>
@@ -1787,7 +1787,7 @@
         body: JSON.stringify({ weights: weights, total_aum: portfolioData.total_aum })
       });
 
-      alert('Portfolio successfully rebalanced! Refreshing Aladdin risk calculations...');
+      alert('Portfolio successfully rebalanced! Refreshing ASHFX risk calculations...');
       await initPlatform();
     }
 
@@ -1799,7 +1799,7 @@
       input.value = '';
 
       appendMessage('user', text);
-      const loadingId = appendMessage('copilot', '<i class="fa-solid fa-spinner fa-spin" style="color:var(--liquid-cyan);"></i> Calculating Aladdin quant risk metrics...');
+      const loadingId = appendMessage('copilot', '<i class="fa-solid fa-spinner fa-spin" style="color:var(--liquid-cyan);"></i> Calculating ASHFX quant risk metrics...');
 
       try {
         const res = await fetch('/api/ai/query', {
@@ -1811,7 +1811,7 @@
         const html = marked.parse(res.answer);
         updateMessage(loadingId, html);
       } catch (err) {
-        updateMessage(loadingId, `<span style="color:var(--liquid-rose);">Error connecting to Aladdin Copilot: ${err.message}</span>`);
+        updateMessage(loadingId, `<span style="color:var(--liquid-rose);">Error connecting to ASHFX Copilot: ${err.message}</span>`);
       }
     }
 
@@ -1834,7 +1834,7 @@
       const id = 'msg-' + Date.now() + Math.random();
       div.id = id;
       div.className = `msg ${role}`;
-      div.innerHTML = role === 'user' ? content : `<strong><i class="fa-solid fa-shield-halved" style="color:var(--liquid-cyan);"></i> Aladdin Copilot:</strong><br/>${content}`;
+      div.innerHTML = role === 'user' ? content : `<strong><i class="fa-solid fa-shield-halved" style="color:var(--liquid-cyan);"></i> ASHFX Copilot:</strong><br/>${content}`;
       box.appendChild(div);
       box.scrollTop = box.scrollHeight;
       return id;
@@ -1843,7 +1843,7 @@
     function updateMessage(id, newHtml) {
       const elem = document.getElementById(id);
       if (elem) {
-        elem.innerHTML = `<strong><i class="fa-solid fa-shield-halved" style="color:var(--liquid-cyan);"></i> Aladdin Copilot:</strong><br/>${newHtml}`;
+        elem.innerHTML = `<strong><i class="fa-solid fa-shield-halved" style="color:var(--liquid-cyan);"></i> ASHFX Copilot:</strong><br/>${newHtml}`;
         document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
       }
     }
@@ -1851,7 +1851,7 @@
     function clearCopilotChat() {
       document.getElementById('chat-box').innerHTML = `
         <div class="msg copilot">
-          <strong><i class="fa-solid fa-shield-halved" style="color:var(--liquid-cyan);"></i> Aladdin Copilot:</strong><br/>
+          <strong><i class="fa-solid fa-shield-halved" style="color:var(--liquid-cyan);"></i> ASHFX Copilot:</strong><br/>
           Session memory reset. Standing by for queries.
         </div>
       `;
